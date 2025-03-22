@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WLV Finance App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        WLV Finance App
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="daily-expenses.html">Daily Expenses</a>
+            <a href="income-budgeting.html">Income & Budgeting</a>
+            <a href="savings-goals.html">Savings & Goals</a>
+            <a href="student-discounts.html">Student Discounts</a>
+            <a href="financial-aid.html">Financial Aid & Grants</a>
+            <a href="support-advice.html">Support & Advice</a>
+        </nav>
+    </header>
+    <div class="dashboard">
+        <h2>Welcome to Your Student Finance App</h2>
+        <p>Track your daily expenses, set budgets, and manage your savings easily.</p>
+
+        <div class="auth-section" id="auth-section">
+            <h3 id="auth-title">Please Log In</h3>
+
+            <div id="login-form">
+                <form id="loginForm">
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p><a href="forgot-password.html" id="forgot-password">Forgot Password?</a></p>
+                <p>Don't have an account? <a href="register.html" id="register-link">Register here</a></p>
+            </div>
+        </div>
+
+        <div class="user-content" id="user-content" style="display: none;">
+            <h3>Welcome Back, User!</h3>
+            <p>Your personalized dashboard:</p>
+            <ul>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="daily-expenses.html">Daily Expenses</a></li>
+                <li><a href="income-budgeting.html">Income & Budgeting</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        &copy; 2025 University of Wolverhampton - WLV Finance App
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
