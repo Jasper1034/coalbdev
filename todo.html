@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List - WLV Finance App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        WLV Finance App
+    </header>
+
+    <div class="dashboard">
+        <h3>Your To-Do List</h3>
+
+        <div class="content-card">
+            <h4>Pending Tasks</h4>
+            <ul id="todo-list">
+                <li><input type="checkbox"> Create monthly budget</li>
+                <li><input type="checkbox"> Set up emergency fund</li>
+                <li><input type="checkbox"> Review financial aid options</li>
+            </ul>
+
+            <input type="text" id="new-task" placeholder="Add new task..." />
+            <button id="add-task" class="cta-button">Add Task</button>
+        </div>
+
+        <div class="cta-section">
+            <a href="dashboard.html" class="cta-button">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 University of Wolverhampton - WLV Finance App
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('add-task').addEventListener('click', function() {
+            var taskInput = document.getElementById('new-task');
+            var newTask = taskInput.value.trim();
+
+            if (newTask !== "") {
+                var li = document.createElement('li');
+                li.innerHTML = `<input type="checkbox"> ${newTask}`;
+                document.getElementById('todo-list').appendChild(li);
+                taskInput.value = "";  // Clear input field
+            }
+        });
+    </script>
+</body>
+</html>

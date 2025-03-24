@@ -1,0 +1,270 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Progress - WLV Finance App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        WLV Finance App
+    </header>
+
+    <div class="dashboard">
+        <h3>Your Financial Progress</h3>
+        
+        <div class="content-card">
+            <h4>Goal 1: Saving for Emergency Fund</h4>
+            <progress value="60" max="100" style="width: 100%;"></progress>
+            <p>60% of your target saved!</p>
+        </div>
+
+        <div class="content-card">
+            <h4>Goal 2: Monthly Budget Tracking</h4>
+            <progress value="45" max="100" style="width: 100%;"></progress>
+            <p>45% of your monthly budget goal reached.</p>
+        </div>
+
+        <div class="cta-section">
+            <a href="dashboard.html" class="cta-button">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 University of Wolverhampton - WLV Finance App
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Progress - WLV Finance App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        WLV Finance App
+    </header>
+
+    <div class="dashboard">
+        <h3>Your Financial Progress</h3>
+
+        <div class="content-card">
+            <h4>Goal 1: Saving for Emergency Fund</h4>
+            <progress value="60" max="100" style="width: 100%;"></progress>
+            <p>60% of your target saved!</p>
+        </div>
+
+        <div class="content-card">
+            <h4>Goal 2: Monthly Budget Tracking</h4>
+            <progress value="45" max="100" style="width: 100%;"></progress>
+            <p>45% of your monthly budget goal reached.</p>
+        </div>
+
+        <div class="content-card">
+            <h4>Expense Breakdown</h4>
+            <ul>
+                <li>Rent: £300</li>
+                <li>Groceries: £150</li>
+                <li>Transport: £50</li>
+                <li>Entertainment: £100</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h4>Monthly Budget Analysis</h4>
+            <canvas id="budgetChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="content-card">
+            <h4>Key Financial Insights</h4>
+            <p>• You are on track to reach your savings goal within 4 months.</p>
+            <p>• Consider reducing entertainment expenses to save more.</p>
+            <p>• You have £200 left in your budget for this month.</p>
+        </div>
+
+        <div class="cta-section">
+            <a href="dashboard.html" class="cta-button">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 University of Wolverhampton - WLV Finance App
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('budgetChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Rent', 'Groceries', 'Transport', 'Entertainment'],
+                datasets: [{
+                    label: 'Monthly Spending',
+                    data: [300, 150, 50, 100],
+                    backgroundColor: ['#4CAF50', '#2196F3', '#FF9800', '#F44336']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Progress - WLV Finance App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        WLV Finance App
+    </header>
+
+    <div class="dashboard">
+        <h3>Your Financial Progress</h3>
+
+        <div class="content-card">
+            <h4>Goal 1: Saving for Emergency Fund</h4>
+            <progress value="60" max="100" style="width: 100%;"></progress>
+            <p>60% of your target saved!</p>
+        </div>
+
+        <div class="content-card">
+            <h4>Goal 2: Monthly Budget Tracking</h4>
+            <progress value="45" max="100" style="width: 100%;"></progress>
+            <p>45% of your monthly budget goal reached.</p>
+        </div>
+
+        <div class="content-card">
+            <h4>Expense Breakdown</h4>
+            <ul>
+                <li>Rent: <input type='number' value='300' min='0' step='10'></li>
+                <li>Groceries: <input type='number' value='150' min='0' step='10'></li>
+                <li>Transport: <input type='number' value='50' min='0' step='10'></li>
+                <li>Entertainment: <input type='number' value='100' min='0' step='10'></li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h4>Monthly Budget Analysis</h4>
+            <canvas id="budgetChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="content-card">
+            <h4>Key Financial Insights</h4>
+            <p>• You are on track to reach your savings goal within 4 months.</p>
+            <p>• Consider reducing entertainment expenses to save more.</p>
+            <p>• You have £200 left in your budget for this month.</p>
+        </div>
+
+        <div class="cta-section">
+            <a href="dashboard.html" class="cta-button">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 University of Wolverhampton - WLV Finance App
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('budgetChart').getContext('2d');
+        const rentInput = document.querySelector('input[value="300"]');
+        const groceriesInput = document.querySelector('input[value="150"]');
+        const transportInput = document.querySelector('input[value="50"]');
+        const entertainmentInput = document.querySelector('input[value="100"]');
+
+        const chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Rent', 'Groceries', 'Transport', 'Entertainment'],
+                datasets: [{
+                    label: 'Monthly Spending',
+                    data: [parseInt(rentInput.value), parseInt(groceriesInput.value), parseInt(transportInput.value), parseInt(entertainmentInput.value)],
+                    backgroundColor: ['#4CAF50', '#2196F3', '#FF9800', '#F44336']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        function updateChart() {
+            chart.data.datasets[0].data = [
+                parseInt(rentInput.value),
+                parseInt(groceriesInput.value),
+                parseInt(transportInput.value),
+                parseInt(entertainmentInput.value)
+            ];
+            chart.update();
+        }
+
+        rentInput.addEventListener('input', updateChart);
+        groceriesInput.addEventListener('input', updateChart);
+        transportInput.addEventListener('input', updateChart);
+        entertainmentInput.addEventListener('input', updateChart);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

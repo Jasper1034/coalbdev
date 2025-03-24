@@ -1,4 +1,4 @@
-document.getElementById("registerForm").addEventListener("submit", function(e) {
+document.getElementById("registerForm")?.addEventListener("submit", function(e) {
     e.preventDefault();
 
     var firstName = document.getElementById("first-name").value;
@@ -30,6 +30,10 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         return;
     }
 
+    localStorage.setItem("firstName", firstName);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+
     alert("Account successfully created! Welcome, " + firstName + " " + lastName + ". You can now log in.");
 
     clearForm();
@@ -39,7 +43,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
     }, 2000);
 });
 
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+document.getElementById("loginForm")?.addEventListener("submit", function(e) {
     e.preventDefault();
 
     var email = document.getElementById("email").value;
@@ -62,14 +66,12 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     localStorage.setItem("isLoggedIn", "true");
 
-    document.getElementById("auth-section").style.display = "none";
-    document.getElementById("user-content").style.display = "block";
+    window.location.href = "dashboard.html";
 });
 
 document.getElementById("logout")?.addEventListener("click", function() {
     localStorage.setItem("isLoggedIn", "false");
-    document.getElementById("auth-section").style.display = "block";
-    document.getElementById("user-content").style.display = "none";
+    window.location.href = "index.html";
 });
 
 function clearForm() {
@@ -78,4 +80,12 @@ function clearForm() {
     document.getElementById("register-email").value = '';
     document.getElementById("register-password").value = '';
     document.getElementById("confirm-password").value = '';
+}
+
+if (window.location.pathname.includes("dashboard.html")) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "index.html";
+    } else {
+        document.getElementById("user-name").innerText = localStorage.getItem("firstName") || "User";
+    }
 }
