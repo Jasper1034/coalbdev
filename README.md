@@ -23,10 +23,6 @@
 - Apply for discounts  
 - Check available student offers  
 
-### **Financial Aid & Grants**  
-- Apply for student grants  
-- Check available financial aid  
-
 ### **Support & Advice**  
 - Financial advice and resources  
 

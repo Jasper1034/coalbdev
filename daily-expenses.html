@@ -3,36 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Expenses - WLV Finance App</title>
+    <title>WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            background: url('image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            opacity: 0.9; /* Adjust transparency */
-        }
-    </style>
 </head>
 <body>
-    <header>WLV Finance App</header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="daily-expenses.html">Daily Expenses</a>
-        <a href="income-budgeting.html">Income & Budgeting</a>
-        <a href="savings-goals.html">Savings & Goals</a>
-        <a href="student-discounts.html">Student Discounts</a>
-        <a href="financial-aid.html">Financial Aid & Grants</a>
-        <a href="dashboard.html">dashboard</a>
+    <header>
+        WLV Finance App
+    </header>
 
+    <nav>
+        <a href="#" class="nav-link" data-section="daily-expenses" id="daily-expenses-link">Daily Expenses</a>
+        <button id="back-to-dashboard-btn">Back to Dashboard</button>
     </nav>
-    <div class="dashboard">
+
+    <div class="dashboard" id="daily-expenses-section">
         <h2>Daily Expenses</h2>
-        <p>Track your daily spending habits with ease! Categorize your purchases and gain insights into where your money goes. This helps you identify areas where you can cut back and save.</p>
-        <p>With this tool, you'll be able to effectively track your expenses in real-time, categorize purchases (e.g., food, transportation, entertainment), and see a breakdown of your spending patterns over time.</p>
+        <p>Track your daily spending easily.</p>
+
+        <div class="content-card">
+            <h3>Add New Expense:</h3>
+            <form id="add-expense-form">
+                <label for="expense-category">Category:</label>
+                <select id="expense-category" required>
+                    <option value="Food">Food</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Miscellaneous">Miscellaneous</option>
+                </select>
+
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" required>
+
+                <label for="expense-date">Date:</label>
+                <input type="date" id="expense-date" required>
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+
+        <div class="content-card">
+            <h3>Expense Summary:</h3>
+            <p id="expense-summary"></p>
+        </div>
+
+        <div class="content-card">
+            <h3>Your Expenses History:</h3>
+            <ul id="expense-history-list"></ul>
+        </div>
+
+        <div class="content-card">
+            <h3>Set Your Budget Goal:</h3>
+            <form id="budget-form">
+                <label for="budget-amount">Set Budget Amount:</label>
+                <input type="number" id="budget-amount" required>
+                <button type="submit">Set Budget</button>
+            </form>
+            <p id="budget-status"></p>
+        </div>
     </div>
+
     <footer>
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
