@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -60,6 +61,11 @@
                 <button type="submit">Set Budget</button>
             </form>
             <p id="budget-status"></p>
+        </div>
+
+        <div class="content-card">
+            <h3>Expense Graph:</h3>
+            <canvas id="expenseChart"></canvas>
         </div>
     </div>
 
