@@ -24,11 +24,11 @@
             <h2>Welcome Back, <span id="user-name">User</span>!</h2>
             <p>Your personalized finance dashboard:</p>
             <ul>
-                <li><a href="daily-expenses.html">Daily Expenses</a></li>
+                <li><a href="daily-expenses.html">Daily Expenses</a></li>       <!--nav bar-->
                 <li><a href="income-budgeting.html">Income & Budgeting</a></li>
                 <li><a href="savings-goals.html">Savings & Goals</a></li>
                 <li><a href="student-discounts.html">Student Discounts</a></li>
-                <li><a href="support-advice.html">Support & Advice</a></li>
+                <li><a href="support-advice.html">Support & Advice</a></li> 
                 <li><a href="#" id="logout">Logout</a></li>
             </ul>
         </div>
@@ -38,9 +38,9 @@
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
-    <script src="script.js"></script>
 
-    
+
+    <!-- add the external script code for better performence i want this one first to load -->
     <script>
         if (localStorage.getItem("isLoggedIn") !== "true") {
             window.location.href = "index.html";
@@ -48,5 +48,12 @@
             document.getElementById("user-name").innerText = localStorage.getItem("firstName") || "User";
         }
     </script>
+
+
+
+    <script src="script.js"></script>
+
+
+
 </body>
 </html>
