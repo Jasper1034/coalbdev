@@ -1,0 +1,232 @@
+body {
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3e5f5;
+}
+
+header {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
+nav {
+    background-color: #4a148c;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    align-items: center;
+}
+
+#back-to-dashboard-btn {
+    margin-left: 20px;
+    font-size: 18px;
+    background-color: #6a1b9a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#back-to-dashboard-btn:hover {
+    background-color: #4a148c;
+    transform: scale(1.05);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+nav a:hover {
+    background-color: #8e24aa;
+    border-radius: 5px;
+    transform: scale(1.05);
+}
+
+.dashboard {
+    text-align: left;
+    margin: 40px auto;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.name-field input,
+input,
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.password-requirements {
+    background-color: #f2f2f2;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+button {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #4a148c;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #4a148c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.register-page body {
+    font-size: 14px;
+}
+
+.register-page header {
+    font-size: 16px;
+}
+
+.register-page .dashboard {
+    font-size: 18px;
+    padding: 20px;
+    margin: 40px auto;
+}
+
+.register-page form input,
+.register-page form select,
+.register-page form button {
+    font-size: 14px;
+}
+
+.register-page .password-requirements {
+    font-size: 14px;
+}
+
+.register-page .password-requirements ul {
+    font-size: 14px;
+}
+
+.register-page button {
+    font-size: 14px;
+}
+
+.register-page footer {
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+
+    .dashboard {
+        padding: 15px;
+    }
+
+    .register-page body {
+        font-size: 16px;
+    }
+}
+
+.content-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+    font-size: 24px;
+    color: #6a1b9a;
+    margin-bottom: 15px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.cta-button {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+}
+
+.cta-button:hover {
+    background-color: #4a148c;
+    transform: scale(1.05);
+}
+
+button:focus, .cta-button:focus {
+    outline: none;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.learn-more-btn {
+    text-decoration: none;
+    display: inline-block;
+    background-color: #8e24aa;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.learn-more-btn:hover {
+    background-color: #6a1b9a;
+    transform: scale(1.05);
+}
+
+.learn-more-btn:focus {
+    outline: none;
+}

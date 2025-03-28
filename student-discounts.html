@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Discounts - WLV Finance App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        WLV Finance App
+    </header>
+
+    <nav>
+        <a href="#" class="nav-link" data-section="student-discounts" id="student-discounts-link">Student Discounts</a>
+        <button id="back-to-dashboard-btn">Back to Dashboard</button>
+    </nav>
+
+    <div class="dashboard" id="student-discounts-section">
+        <h2>Student Discounts</h2>
+        <p>Find exclusive discounts and offers available for students.</p>
+
+        <div class="content-card">
+            <h3>Store New Discounts:</h3>
+            <form id="store-discount-form">
+                <label for="discount-category">Category:</label>
+                <select id="discount-category" required>
+                    <option value="transportation">Transportation</option>
+                    <option value="streaming">Streaming</option>
+                    <option value="technology">Technology</option>
+                    <option value="food">Food</option>
+                </select>
+
+                <label for="discount-amount">Discount Amount:</label>
+                <input type="number" id="discount-amount" required>
+
+                <label for="discount-start-date">Start Date:</label>
+                <input type="date" id="discount-start-date" required>
+
+                <label for="discount-end-date">End Date:</label>
+                <input type="date" id="discount-end-date" required>
+
+                <button type="submit">Store Discount</button>
+            </form>
+        </div>
+
+        <div class="content-card">
+            <h3>Available Discounts:</h3>
+            <div id="discount-category-list">
+                <div class="category">
+                    <h4><a href="https://www.transportation.com" target="_blank">Transportation</a></h4>
+                    <ul id="transportation-discounts"></ul>
+                </div>
+                <div class="category">
+                    <h4><a href="https://www.netflix.com" target="_blank">Streaming (e.g., Netflix, Amazon)</a></h4>
+                    <ul id="streaming-discounts"></ul>
+                </div>
+                <div class="category">
+                    <h4><a href="https://www.apple.com" target="_blank">Technology (e.g., Apple, Dell)</a></h4>
+                    <ul id="technology-discounts"></ul>
+                </div>
+                <div class="category">
+                    <h4><a href="https://www.food.com" target="_blank">Food & Dining</a></h4>
+                    <ul id="food-discounts"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 University of Wolverhampton - WLV Finance App
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
