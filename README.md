@@ -1,4 +1,5 @@
-# Welcome Back, furba!
+# Welcome Back, The progress partner!
+
 
 ## Your Personalized Finance Dashboard:
 
