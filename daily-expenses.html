@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -67,6 +69,124 @@
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
+
+
+
+
+
+
+
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const db = firebase.firestore();
+    </script>
+
+
+
+
+
+
+    <script>
+        const addExpenseForm = document.getElementById("add-expense-form");
+        const expenseHistoryList = document.getElementById("expense-history-list");
+        const expenseSummary = document.getElementById("expense-summary");
+        const budgetForm = document.getElementById("budget-form");
+        const budgetStatus = document.getElementById("budget-status");
+
+        let currentBudget = 0;
+
+        addExpenseForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const category = document.getElementById("expense-category").value;
+            const amount = parseFloat(document.getElementById("expense-amount").value);
+            const date = document.getElementById("expense-date").value;
+
+            await db.collection("dailyExpenses").add({
+                category,
+                amount,
+                date,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            addExpenseForm.reset();
+            loadExpenses();
+        });
+
+        budgetForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            currentBudget = parseFloat(document.getElementById("budget-amount").value);
+            updateBudgetStatus();
+        });
+
+        async function loadExpenses() {
+            expenseHistoryList.innerHTML = "";
+            let total = 0;
+
+            const snapshot = await db.collection("dailyExpenses").orderBy("timestamp", "desc").get();
+            snapshot.forEach((doc) => {
+                const expense = doc.data();
+                total += expense.amount;
+
+                const li = document.createElement("li");
+                li.textContent = `${expense.date} - ${expense.category}: $${expense.amount.toFixed(2)}`;
+                expenseHistoryList.appendChild(li);
+            });
+
+            expenseSummary.textContent = `Total Spent: $${total.toFixed(2)}`;
+            updateBudgetStatus(total);
+        }
+
+        function updateBudgetStatus(total = 0) {
+            if (currentBudget === 0) {
+                budgetStatus.textContent = "Set your budget to track progress.";
+                return;
+            }
+
+            const remaining = currentBudget - total;
+            budgetStatus.textContent = `Remaining Budget: $${remaining.toFixed(2)}`;
+        }
+
+        // Initial load
+        loadExpenses();
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script src="script.js"></script>
 </body>
+
 </html>
