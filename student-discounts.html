@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Discounts - WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -67,10 +69,112 @@
         </div>
     </div>
 
+
+
+
+
+
+
+
+    <!-- 1) Firebase SDK (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <!-- 2) Init Firebase & Firestore -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+    </script>
+
+    <!-- 3) Student Discounts Logic -->
+    <script>
+        // Elements
+        const form = document.getElementById("store-discount-form");
+        const lists = {
+            transportation: document.getElementById("transportation-discounts"),
+            streaming: document.getElementById("streaming-discounts"),
+            technology: document.getElementById("technology-discounts"),
+            food: document.getElementById("food-discounts")
+        };
+
+        // Submit new discount
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+            const category = document.getElementById("discount-category").value;
+            const amount = parseFloat(document.getElementById("discount-amount").value);
+            const startDate = document.getElementById("discount-start-date").value;
+            const endDate = document.getElementById("discount-end-date").value;
+
+            await db.collection("studentDiscounts").add({
+                category,
+                amount,
+                startDate,
+                endDate,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            form.reset();
+            loadDiscounts();
+        });
+
+        // Load and render discounts
+        async function loadDiscounts() {
+            // Clear all lists
+            Object.values(lists).forEach(ul => ul.innerHTML = "");
+
+            const snapshot = await db
+                .collection("studentDiscounts")
+                .orderBy("timestamp", "desc")
+                .get();
+
+            snapshot.forEach(doc => {
+                const { category, amount, startDate, endDate } = doc.data();
+                const ul = lists[category];
+                if (!ul) return;
+                const li = document.createElement("li");
+                li.textContent = `${amount}% off from ${startDate} to ${endDate}`;
+                ul.appendChild(li);
+            });
+        }
+
+        // Initial fetch
+        loadDiscounts();
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <footer>
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support & Advice - WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -18,21 +20,25 @@
 
     <div class="dashboard" id="support-advice-section">
         <h2>Support & Advice</h2>
-        <p>We are here to assist you with troubleshooting, tips, and support for managing your finances through the WLV Finance App.</p>
+        <p>We are here to assist you with troubleshooting, tips, and support for managing your finances through the WLV
+            Finance App.</p>
 
         <div class="content-card" id="faq">
             <h3>Frequently Asked Questions (FAQ)</h3>
             <div class="faq-item">
                 <h4>How do I add an expense?</h4>
-                <p>To add an expense, navigate to the "Daily Expenses" section, fill out the form with the required information (category, amount, and date), and click "Add Expense".</p>
+                <p>To add an expense, navigate to the "Daily Expenses" section, fill out the form with the required
+                    information (category, amount, and date), and click "Add Expense".</p>
             </div>
             <div class="faq-item">
                 <h4>How can I set a budget?</h4>
-                <p>Go to the "Set Your Budget Goal" section and enter the amount you'd like to budget for. Then click "Set Budget". You'll receive notifications if you exceed your budget.</p>
+                <p>Go to the "Set Your Budget Goal" section and enter the amount you'd like to budget for. Then click
+                    "Set Budget". You'll receive notifications if you exceed your budget.</p>
             </div>
             <div class="faq-item">
                 <h4>Can I track recurring expenses?</h4>
-                <p>Currently, the app allows for manual tracking of daily expenses. However, recurring expenses are a feature we are working on for future updates.</p>
+                <p>Currently, the app allows for manual tracking of daily expenses. However, recurring expenses are a
+                    feature we are working on for future updates.</p>
             </div>
         </div>
 
@@ -58,13 +64,99 @@
             <h3>Financial Advice & Tips</h3>
             <p>Here are some tips on how to manage your finances effectively:</p>
             <ul>
-                <li><strong>Track Your Spending:</strong> Always keep an eye on where your money is going. Use the "Daily Expenses" feature to log every transaction.</li>
-                <li><strong>Set a Budget:</strong> Setting a budget helps you stay within your limits. Try to stick to your budget and adjust as necessary.</li>
-                <li><strong>Save for the Future:</strong> It's important to allocate some money towards savings. Try setting up a monthly savings goal.</li>
-                <li><strong>Review Regularly:</strong> Regularly review your spending and adjust your budget to ensure you're on track with your financial goals.</li>
+                <li><strong>Track Your Spending:</strong> Always keep an eye on where your money is going. Use the
+                    "Daily Expenses" feature to log every transaction.</li>
+                <li><strong>Set a Budget:</strong> Setting a budget helps you stay within your limits. Try to stick to
+                    your budget and adjust as necessary.</li>
+                <li><strong>Save for the Future:</strong> It's important to allocate some money towards savings. Try
+                    setting up a monthly savings goal.</li>
+                <li><strong>Review Regularly:</strong> Regularly review your spending and adjust your budget to ensure
+                    you're on track with your financial goals.</li>
             </ul>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- Firebase SDK (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Init -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+    </script>
+
+    <!-- Contact Support Form Logic -->
+    <script>
+        const contactForm = document.getElementById("contact-form");
+
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!name || !email || !message) return;
+
+            await db.collection("supportMessages").add({
+                name,
+                email,
+                message,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            alert("Your message has been sent. We'll get back to you shortly.");
+            contactForm.reset();
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <footer>
         <p>&copy; 2025 University of Wolverhampton - WLV Finance App</p>
@@ -72,4 +164,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

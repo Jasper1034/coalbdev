@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savings & Goals - WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -18,7 +20,8 @@
 
     <div class="dashboard" id="savings-goals-section">
         <h2>Savings & Goals</h2>
-        <p>Set your financial goals and track your progress to ensure that you save for what truly matters in your life.</p>
+        <p>Set your financial goals and track your progress to ensure that you save for what truly matters in your life.
+        </p>
 
         <div class="content-card">
             <h3>Create a New Savings Goal:</h3>
@@ -51,6 +54,116 @@
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
+
+
+
+
+
+
+
+    <!-- 1) Firebase SDK (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <!-- 2) Initialize Firebase & Firestore -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+    </script>
+
+    <!-- 3) Savings Goals Logic -->
+    <script>
+        // Elements
+        const goalForm = document.getElementById("create-savings-goal-form");
+        const historyUl = document.getElementById("savings-history-list");
+        const progressP = document.getElementById("savings-progress");
+
+        // Add Goal
+        goalForm.addEventListener("submit", async e => {
+            e.preventDefault();
+            const name = document.getElementById("goal-name").value;
+            const amount = parseFloat(document.getElementById("goal-amount").value);
+            const date = document.getElementById("goal-date").value;
+
+            await db.collection("savingsGoals").add({
+                name,
+                amount,
+                date,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            goalForm.reset();
+            loadGoals();
+        });
+
+        // Load & Render
+        async function loadGoals() {
+            historyUl.innerHTML = "";
+            const snapshot = await db
+                .collection("savingsGoals")
+                .orderBy("timestamp", "desc")
+                .get();
+
+            let goals = [];
+            snapshot.forEach(doc => {
+                goals.push(doc.data());
+                const { name, amount, date } = doc.data();
+                const li = document.createElement("li");
+                li.textContent = `${name} — £${amount.toFixed(2)} by ${date}`;
+                historyUl.appendChild(li);
+            });
+
+            // Update progress text
+            if (goals.length === 0) {
+                progressP.textContent = "No goals set yet. Create a goal above to start tracking!";
+            } else {
+                // Find next upcoming deadline
+                const upcoming = goals
+                    .map(g => ({ ...g, dateObj: new Date(g.date) }))
+                    .filter(g => g.dateObj >= new Date())
+                    .sort((a, b) => a.dateObj - b.dateObj);
+                const next = upcoming.length
+                    ? upcoming[0].date
+                    : goals[0].date; // fallback
+                progressP.textContent =
+                    `You have ${goals.length} goal${goals.length > 1 ? 's' : ''}. ` +
+                    `Next deadline: ${next}`;
+            }
+        }
+
+        // Initial fetch
+        loadGoals();
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script src="script.js"></script>
 </body>
+
 </html>

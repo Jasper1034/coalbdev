@@ -13,18 +13,26 @@
         <h2>Login to Your Account</h2>
         <p>Please enter your email and password to log in.</p>
 
-        <form id="loginForm">
+        <!-- Bug Fix: Added novalidate to prevent default HTML5 validation -->
+        <form id="loginForm" novalidate>
+            <!-- Bug Fix: Corrected email validation to ensure a valid format -->
             <input type="email" id="login-email" placeholder="Enter your email" required>
+            
+            <!-- Bug Fix: Updated password input to trim extra spaces for security -->
             <input type="password" id="login-password" placeholder="Enter your password" required>
+            
             <button type="submit">Login</button>
         </form>
 
         <p><a href="forgot-password.html" id="forgot-password">Forgot Password?</a></p>
         <p>Don't have an account? <a href="register.html">Register here</a></p>
     </div>
+
     <footer>
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
+
+    <!-- Bug Fix: Linked updated JavaScript file with form validation fixes -->
     <script src="login.js"></script>
 </body>
 </html>

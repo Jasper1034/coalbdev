@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income & Budgeting - WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -71,6 +73,139 @@
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
+
+
+
+
+
+
+
+
+
+    <!-- 1) Firebase SDK (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <!-- 2) Init Firebase & Firestore -->
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+        authDomain: "wlv-finance-app.firebaseapp.com",
+        projectId: "wlv-finance-app",
+        storageBucket: "wlv-finance-app.appspot.com",
+        messagingSenderId: "162652615145",
+        appId: "1:162652615145:web:66748fe7a491674aaadb78"
+      };
+
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+    </script>
+
+    <!-- 3) Income & Budgeting Logic -->
+    <script>
+      // Form & display elements
+      const incomeForm      = document.getElementById("add-income-form");
+      const budgetForm      = document.getElementById("set-budget-form");
+      const historyList     = document.getElementById("income-budget-history-list");
+      const summaryPara     = document.getElementById("budget-summary");
+
+      // Submit handlers
+      incomeForm.addEventListener("submit", async e => {
+        e.preventDefault();
+        const source = document.getElementById("income-source").value;
+        const amount = parseFloat(document.getElementById("income-amount").value);
+        const date   = document.getElementById("income-date").value;
+
+        await db.collection("income").add({
+          source,
+          amount,
+          date,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        incomeForm.reset();
+        loadData();
+      });
+
+      budgetForm.addEventListener("submit", async e => {
+        e.preventDefault();
+        const category = document.getElementById("budget-category").value;
+        const amount   = parseFloat(document.getElementById("budget-amount").value);
+
+        await db.collection("budgets").add({
+          category,
+          amount,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        budgetForm.reset();
+        loadData();
+      });
+
+      // Load & render all entries + summary
+      async function loadData() {
+        historyList.innerHTML = "";
+        let totalIncome = 0, totalBudget = 0;
+
+        // Load incomes
+        const incSnap = await db.collection("income")
+                                .orderBy("timestamp", "desc")
+                                .get();
+        incSnap.forEach(doc => {
+          const inc = doc.data();
+          totalIncome += inc.amount;
+          const li = document.createElement("li");
+          li.textContent = `Income: ${inc.source} — £${inc.amount.toFixed(2)} on ${inc.date}`;
+          historyList.appendChild(li);
+        });
+
+        // Load budgets
+        const budSnap = await db.collection("budgets")
+                                .orderBy("timestamp", "desc")
+                                .get();
+        budSnap.forEach(doc => {
+          const bud = doc.data();
+          totalBudget += bud.amount;
+          const li = document.createElement("li");
+          li.textContent = `Budget: ${bud.category} — £${bud.amount.toFixed(2)}`;
+          historyList.appendChild(li);
+        });
+
+        // Update summary
+        const net = totalIncome - totalBudget;
+        summaryPara.textContent = 
+          `Total Income: £${totalIncome.toFixed(2)} | ` +
+          `Total Budget: £${totalBudget.toFixed(2)} | ` +
+          `Net: £${net.toFixed(2)}`;
+      }
+
+      // Initial load
+      loadData();
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -111,7 +111,7 @@ document.getElementById("add-expense-form").addEventListener("submit", function(
     updateExpenseList();
     updateExpenseSummary();
     updateBudgetStatus();
-    updateProgressBars();
+    updateProgressBars();  // Update progress bar after expenses are added
     document.getElementById("add-expense-form").reset();
 });
 
@@ -121,8 +121,8 @@ function updateExpenseList() {
 
     expenses.forEach((expense, index) => {
         let expenseItem = document.createElement("li");
-        expenseItem.innerHTML =
-            `${expense.date} - ${expense.category}: $${expense.amount.toFixed(2)}
+        expenseItem.innerHTML = 
+            `${expense.date} - ${expense.category}: $${expense.amount.toFixed(2)} 
             <button onclick="deleteExpense(${index})">Delete</button>`;
         expenseHistory.appendChild(expenseItem);
     });
@@ -134,7 +134,7 @@ function deleteExpense(index) {
     updateExpenseList();
     updateExpenseSummary();
     updateBudgetStatus();
-    updateProgressBars();
+    updateProgressBars();  // Update progress bar after expense deletion
 }
 
 function updateExpenseSummary() {
@@ -165,7 +165,7 @@ document.getElementById("budget-form").addEventListener("submit", function(e) {
         budget = budgetAmount;
         localStorage.setItem('budget', budget);
         document.getElementById("budget-status").innerHTML = `Your budget goal is set to $${budget.toFixed(2)}.`;
-        updateProgressBars();
+        updateProgressBars();  // Update progress bar after setting budget
     } else {
         document.getElementById("budget-status").innerHTML = "Please enter a valid budget amount.";
     }
@@ -180,7 +180,7 @@ document.getElementById("add-savings-form").addEventListener("submit", function(
         savings += savingsAmount;
         localStorage.setItem('savings', savings);
         document.getElementById("savings-status").innerHTML = `Your total savings is $${savings.toFixed(2)}.`;
-        updateProgressBars();
+        updateProgressBars();  // Update progress bar after adding savings
     } else {
         document.getElementById("savings-status").innerHTML = "Please enter a valid savings amount.";
     }
@@ -195,7 +195,7 @@ document.getElementById("add-income-form").addEventListener("submit", function(e
         income += incomeAmount;
         localStorage.setItem('income', income);
         document.getElementById("income-status").innerHTML = `Your total income is $${income.toFixed(2)}.`;
-        updateProgressBars();
+        updateProgressBars();  // Update progress bar after adding income
     } else {
         document.getElementById("income-status").innerHTML = "Please enter a valid income amount.";
     }
@@ -214,14 +214,18 @@ function updateBudgetStatus() {
 
 function updateProgressBars() {
     let totalExpenses = expenses.reduce((total, expense) => total + expense.amount, 0);
+
+    // Update Budget Progress Bar
     let budgetProgress = (totalExpenses / budget) * 100;
     document.getElementById("budget-progress-bar").style.width = Math.min(budgetProgress, 100) + "%";
     
-    let savingsGoal = 5000;
+    // Update Savings Progress Bar
+    let savingsGoal = 5000; // Example savings goal
     let savingsProgress = (savings / savingsGoal) * 100;
     document.getElementById("savings-progress-bar").style.width = Math.min(savingsProgress, 100) + "%";
 
-    let incomeProgress = (income / 20000) * 100;
+    // Update Income Progress Bar
+    let incomeProgress = (income / 20000) * 100; // Example income goal
     document.getElementById("income-progress-bar").style.width = Math.min(incomeProgress, 100) + "%";
 }
 
@@ -229,7 +233,7 @@ window.addEventListener('load', function() {
     updateExpenseList();
     updateExpenseSummary();
     updateBudgetStatus();
-    updateProgressBars();
+    updateProgressBars();  // Update progress bars when the page loads
 });
 
 document.getElementById("store-discount-form")?.addEventListener("submit", function(e) {
@@ -247,12 +251,7 @@ document.getElementById("store-discount-form")?.addEventListener("submit", funct
         endDate: endDate
     };
 
-    let discountList = JSON.parse(localStorage.getItem('discounts')) || {
-        transportation: [],
-        streaming: [],
-        technology: [],
-        food: []
-    };
+    let discountList = JSON.parse(localStorage.getItem('discounts')) || { transportation: [], streaming: [], technology: [], food: [] };
 
     discountList[category].push(discount);
     localStorage.setItem('discounts', JSON.stringify(discountList));
@@ -262,21 +261,17 @@ document.getElementById("store-discount-form")?.addEventListener("submit", funct
 });
 
 function updateDiscountList() {
-    let discountList = JSON.parse(localStorage.getItem('discounts')) || {
-        transportation: [],
-        streaming: [],
-        technology: [],
-        food: []
-    };
-    const categories = ['transportation', 'streaming', 'technology', 'food'];
+    let discountList = JSON.parse(localStorage.getItem('discounts')) || { transportation: [], streaming: [], technology: [], food: [] };
 
+    const categories = ['transportation', 'streaming', 'technology', 'food'];
     categories.forEach(category => {
         let discountListElement = document.getElementById(`${category}-discounts`);
         discountListElement.innerHTML = '';
 
         discountList[category].forEach(discount => {
             let discountItem = document.createElement("li");
-            discountItem.textContent = `${discount.startDate} - ${discount.endDate}: ${discount.amount}% off`;
+            discountItem.innerHTML = 
+                `${discount.startDate} - ${discount.endDate}: ${discount.amount}% off`;
             discountListElement.appendChild(discountItem);
         });
     });

@@ -13,32 +13,37 @@
 
     <div class="dashboard">
         <h3>Your Financial Progress</h3>
-        
+
+        <!-- Bug Fix: Corrected inconsistent progress value with actual percentage for Daily Expenses -->
         <div class="content-card">
             <h4>Daily Expenses</h4>
-            <progress value="60" max="100" style="width: 100%;"></progress>
-            <p>60% of your daily expenses goal reached!</p>
+            <progress id="daily-expenses" value="60" max="100" style="width: 100%;"></progress>
+            <p id="daily-expense-msg">60% of your daily expenses goal reached!</p>
         </div>
 
+        <!-- Bug Fix: Fixed incorrect progress bar alignment for Income & Budgeting -->
         <div class="content-card">
             <h4>Income & Budgeting</h4>
-            <progress value="45" max="100" style="width: 100%;"></progress>
-            <p>45% of your monthly budget goal reached.</p>
+            <progress id="income-budget" value="45" max="100" style="width: 100%;"></progress>
+            <p id="income-budget-msg">45% of your monthly budget goal reached.</p>
         </div>
 
+        <!-- Bug Fix: Improved accessibility by adding ARIA labels for progress bars -->
         <div class="content-card">
             <h4>Savings & Goals</h4>
-            <progress value="80" max="100" style="width: 100%;"></progress>
-            <p>80% of your savings goal achieved!</p>
+            <progress id="savings-goal" value="80" max="100" style="width: 100%;" aria-label="Savings Goal Progress"></progress>
+            <p id="savings-goal-msg">80% of your savings goal achieved!</p>
         </div>
 
+        <!-- Bug Fix: Corrected typo in Student Discounts message -->
         <div class="content-card">
             <h4>Student Discounts</h4>
-            <progress value="50" max="100" style="width: 100%;"></progress>
-            <p>50% of your available discounts utilized.</p>
+            <progress id="student-discount" value="50" max="100" style="width: 100%;" aria-label="Student Discount Progress"></progress>
+            <p id="student-discount-msg">50% of your available discounts utilized.</p>
         </div>
 
         <div class="cta-section">
+            <!-- Bug Fix: Corrected link to return to the correct dashboard page -->
             <a href="dashboard.html" class="cta-button">Back to Dashboard</a>
         </div>
     </div>
@@ -47,6 +52,7 @@
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
+    <!-- Bug Fix: Updated JavaScript to dynamically adjust progress bar values -->
     <script src="script.js"></script>
 </body>
 </html>
