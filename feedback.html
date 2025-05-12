@@ -102,5 +102,119 @@
   </div>
 
   <footer>&copy; 2025 University of Wolverhampton - WLV Finance App</footer>
+
+
+
+
+
+
+  <!-- 1) Firebase SDK (compat)
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    2) Init Firebase & Firestore -->
+    <!-- <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+        authDomain: "wlv-finance-app.firebaseapp.com",
+        projectId: "wlv-finance-app",
+        storageBucket: "wlv-finance-app.appspot.com",
+        messagingSenderId: "162652615145",
+        appId: "1:162652615145:web:66748fe7a491674aaadb78"
+      };
+
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+    </script>  -->
+
+
+
+
+
+
+
+    <!-- Firebase SDK (Compat Version) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+    authDomain: "wlv-finance-app.firebaseapp.com",
+    projectId: "wlv-finance-app",
+    storageBucket: "wlv-finance-app.appspot.com",
+    messagingSenderId: "162652615145",
+    appId: "1:162652615145:web:66748fe7a491674aaadb78"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const form = document.getElementById("feedbackForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const rating = form.rating.value;
+    const comments = form.comments.value.trim();
+
+    try {
+      await db.collection("feedback").add({
+        name,
+        email,
+        rating,
+        comments,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      alert("Thank you for your feedback!");
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
