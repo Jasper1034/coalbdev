@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-        background-image: url('wolverhampton-uni2.jpg');
-        background-size: cover; /* or 'contain', or set a specific size like '100% 100%' */
-        background-repeat: no-repeat;
-        background-position: center;
+            background-image: url('wolverhampton-uni2.jpg');
+            background-size: cover;
+            /* or 'contain', or set a specific size like '100% 100%' */
+            background-repeat: no-repeat;
+            background-position: center;
         }
     </style>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -72,6 +76,23 @@
             <p id="budget-status"></p>
         </div>
     </div>
+
+
+
+
+
+
+    <!-- Pie Chart Container -->
+    <div
+        style="width: 80%; max-width: 500px; margin: 40px auto; background: white; padding: 20px; border-radius: 10px;">
+        <canvas id="expensePieChart" style="background-color: white;"></canvas>
+    </div>
+
+
+
+
+
+
 
     <footer>
         &copy; 2025 University of Wolverhampton - WLV Finance App
@@ -177,6 +198,56 @@
         // Initial load
         loadExpenses();
     </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        const pieData = {
+            labels: ['Food', 'Transport', 'Entertainment', 'Utilities', 'Others'],
+            datasets: [{
+                label: 'Daily Expenses',
+                data: [25, 15, 20, 30, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const pieConfig = {
+            type: 'pie',
+            data: pieData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Daily Expense Breakdown' }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('expensePieChart'), pieConfig);
+    </script>
+
+
+
 
 
 
