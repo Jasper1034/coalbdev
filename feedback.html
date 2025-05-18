@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Feedback Form</title>
@@ -11,6 +12,14 @@
       padding: 0;
     }
 
+    body {
+      background-image: url('wolverhampton-uni4.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
     header {
       background-color: #7209b7;
       color: white;
@@ -19,13 +28,15 @@
       font-size: 1.5rem;
     }
 
+
+
     .container {
       background-color: white;
       max-width: 600px;
       margin: 40px auto;
       padding: 20px 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
@@ -40,7 +51,9 @@
       margin-bottom: 5px;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid #aaa;
@@ -70,10 +83,26 @@
       background-color: #7209b7;
       color: white;
     }
+
+    
   </style>
 </head>
+
+
+
+
+
+
+
+
 <body>
   <header>WLV Finance App - Feedback</header>
+
+  <a href="dashboard.html" class="nav-link" data-section="dashboard" id="dashboard">
+    <button id="back-to-dashboard-btn">Back to Dashboard</button>
+  </a>
+  
+  
 
   <div class="container">
     <h2>We value your feedback!</h2>
@@ -100,6 +129,7 @@
       <button type="submit">Submit Feedback</button>
     </form>
   </div>
+  
 
   <footer>&copy; 2025 University of Wolverhampton - WLV Finance App</footer>
 
@@ -107,98 +137,49 @@
 
 
 
+  <!-- Firebase SDK (Compat Version) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
 
-  <!-- 1) Firebase SDK (compat)
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+      authDomain: "wlv-finance-app.firebaseapp.com",
+      projectId: "wlv-finance-app",
+      storageBucket: "wlv-finance-app.appspot.com",
+      messagingSenderId: "162652615145",
+      appId: "1:162652615145:web:66748fe7a491674aaadb78"
+    };
 
-    2) Init Firebase & Firestore -->
-    <!-- <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
-        authDomain: "wlv-finance-app.firebaseapp.com",
-        projectId: "wlv-finance-app",
-        storageBucket: "wlv-finance-app.appspot.com",
-        messagingSenderId: "162652615145",
-        appId: "1:162652615145:web:66748fe7a491674aaadb78"
-      };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
+    const form = document.getElementById("feedbackForm");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const rating = form.rating.value;
+      const comments = form.comments.value.trim();
+
+      try {
+        await db.collection("feedback").add({
+          name,
+          email,
+          rating,
+          comments,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        alert("Thank you for your feedback!");
+        form.reset();
+      } catch (error) {
+        console.error("Error submitting feedback:", error);
+        alert("Something went wrong. Please try again.");
       }
-      const db = firebase.firestore();
-    </script>  -->
-
-
-
-
-
-
-
-    <!-- Firebase SDK (Compat Version) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
-    authDomain: "wlv-finance-app.firebaseapp.com",
-    projectId: "wlv-finance-app",
-    storageBucket: "wlv-finance-app.appspot.com",
-    messagingSenderId: "162652615145",
-    appId: "1:162652615145:web:66748fe7a491674aaadb78"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  const form = document.getElementById("feedbackForm");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const rating = form.rating.value;
-    const comments = form.comments.value.trim();
-
-    try {
-      await db.collection("feedback").add({
-        name,
-        email,
-        rating,
-        comments,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      alert("Thank you for your feedback!");
-      form.reset();
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      alert("Something went wrong. Please try again.");
-    }
-  });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    });
+  </script>
 
 
 
@@ -217,4 +198,5 @@
 
 
 </body>
+
 </html>

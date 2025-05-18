@@ -1,0 +1,580 @@
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List (with Firebase)</title>
+</head>
+<body>
+    <h2>To-Do List (with Firebase)</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <button onclick="addTask()">Add Task</button> -->
+
+    <!-- Firebase SDKs (COMPAT versions) 
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Add Task
+        function addTask() {
+            const task = document.getElementById('taskInput').value;
+            if (task.trim() === "") return;
+
+            db.collection("tasks").add({
+                task: task,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                alert("Task added!");
+                document.getElementById('taskInput').value = '';
+            })
+            .catch((error) => {
+                console.error("Error adding task: ", error);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List - WLV Finance App</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* [ ... keep your same CSS styles ... ] */
+    #todo-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    #todo-list li {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .delete-task {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 3px 6px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .delete-task:hover {
+      background-color: darkred;
+    }
+    .cta-button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+    }
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+    #filter {
+      margin-top: 10px;
+    }
+   </style>
+
+   Firebase scripts 
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <header>WLV Finance App</header>
+
+  <div class="dashboard">
+    <h3>Your To-Do List</h3>
+    <div class="content-card">
+      <h4>Pending Tasks</h4>
+      <ul id="todo-list"></ul>
+      <input type="text" id="new-task" placeholder="Add new task..." />
+      <button id="add-task" class="cta-button">Add Task</button>
+      <select id="filter" class="cta-button">
+        <option value="all">All Tasks</option>
+        <option value="completed">Completed</option>
+        <option value="pending">Pending</option>
+      </select>
+    </div>
+
+    <div class="cta-section">
+      <a href="dashboard.html" class="cta-button">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 University of Wolverhampton - WLV Finance App</footer>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+      authDomain: "wlv-finance-app.firebaseapp.com",
+      projectId: "wlv-finance-app",
+      storageBucket: "wlv-finance-app.appspot.com",
+      messagingSenderId: "162652615145",
+      appId: "1:162652615145:web:66748fe7a491674aaadb78"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function renderTasks() {
+      const todoList = document.getElementById('todo-list');
+      const filter = document.getElementById('filter').value;
+      todoList.innerHTML = '';
+
+      tasks
+        .filter(task => {
+          if (filter === 'completed') return task.completed;
+          if (filter === 'pending') return !task.completed;
+          return true;
+        })
+        .forEach((task, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <input type="checkbox" ${task.completed ? 'checked' : ''} data-index="${index}" />
+            <span class="${task.completed ? 'completed' : ''}">${task.name}</span>
+            <button class="delete-task" data-index="${index}">Delete</button>
+          `;
+          todoList.appendChild(li);
+        });
+
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    document.getElementById('add-task').addEventListener('click', async function () {
+      const taskInput = document.getElementById('new-task');
+      const newTask = taskInput.value.trim();
+
+      if (newTask !== "") {
+        const taskObject = { name: newTask, completed: false };
+
+        // Save to localStorage
+        tasks.push(taskObject);
+        renderTasks();
+
+        // Save to Firebase Firestore
+        try {
+          await db.collection("todos").add({
+            name: newTask,
+            completed: false,
+            timestamp: new Date()
+          });
+          console.log("Task added to Firebase!");
+        } catch (error) {
+          console.error("Firebase error:", error);
+        }
+
+        taskInput.value = "";
+      } else {
+        alert("Please enter a task!");
+      }
+    });
+
+    document.getElementById('todo-list').addEventListener('change', function (e) {
+      if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
+        const index = e.target.getAttribute('data-index');
+        tasks[index].completed = e.target.checked;
+        renderTasks();
+      }
+    });
+
+    document.getElementById('todo-list').addEventListener('click', function (e) {
+      if (e.target.tagName === 'BUTTON' && e.target.classList.contains('delete-task')) {
+        const index = e.target.getAttribute('data-index');
+        tasks.splice(index, 1);
+        renderTasks();
+      }
+    });
+
+    document.getElementById('filter').addEventListener('change', function () {
+      renderTasks();
+    });
+
+    renderTasks();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { ref, set, get, update, remove } from "firebase/database";
+
+// // Write data to the database
+// const writeData = () => {
+//   set(ref(database, 'users/' + userId), {
+//     username: "JohnDoe",
+//     email: "johndoe@example.com"
+//   }).then(() => {
+//     console.log("Data written successfully!");
+//   }).catch((error) => {
+//     console.error("Error writing data:", error);
+//   });
+// };
+
+// // Read data from the database
+// const readData = () => {
+//   get(ref(database, 'users/' + userId))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         console.log(snapshot.val());
+//       } else {
+//         console.log("No data available");
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error reading data:", error);
+//     });
+// };
+
+
+
+
+
+//   // Import the functions you need from the SDKs you need
+//   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+//   import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+//   // TODO: Add SDKs for Firebase products that you want to use
+//   // https://firebase.google.com/docs/web/setup#available-libraries
+
+//   // Your web app's Firebase configuration
+//   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+//   const firebaseConfig = {
+//     apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+//     authDomain: "wlv-finance-app.firebaseapp.com",
+//     projectId: "wlv-finance-app",
+//     storageBucket: "wlv-finance-app.firebasestorage.app",
+//     messagingSenderId: "162652615145",
+//     appId: "1:162652615145:web:66748fe7a491674aaadb78",
+//     measurementId: "G-WFMRS859FY"
+//   };
+
+//   // Initialize Firebase
+//   const app = initializeApp(firebaseConfig);
+//   const analytics = getAnalytics(app);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+
+
+
+        
+
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//the to-do list old code for firebase config 
+
+
+
+
+
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        // Initialize Firebase (safe way)
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const db = firebase.firestore();
+
+        // This runs on page load
+        window.addEventListener("DOMContentLoaded", () => {
+            loadTasks(); // Load tasks on page load
+        });
+
+        const taskInput = document.getElementById("new-task");
+        const addButton = document.getElementById("add-task");
+        const taskList = document.getElementById("todo-list");
+        const filter = document.getElementById("filter");
+
+        // Add Task
+        addButton.addEventListener("click", () => {
+            const title = taskInput.value.trim();
+            if (title !== "") {
+                addButton.disabled = true; // prevent double click
+                db.collection("tasks").add({
+                    title: title,
+                    status: "pending",
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    taskInput.value = "";
+                    loadTasks(filter.value); // Load tasks with the current filter
+                }).finally(() => {
+                    addButton.disabled = false;
+                });
+            }
+        });
+
+        // Load Tasks with Filter
+        function loadTasks(statusFilter = "all") {
+            taskList.innerHTML = ""; // Clear existing tasks
+
+            let query = db.collection("tasks").orderBy("timestamp", "desc");
+            if (statusFilter !== "all") {
+                query = query.where("status", "==", statusFilter);
+            }
+
+            query.get().then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    const task = doc.data();
+                    const taskId = doc.id;
+
+                    const listItem = document.createElement("li");
+
+                    // Checkbox for task completion
+                    const checkboxContainer = document.createElement("div");
+                    checkboxContainer.classList.add("checkbox-container");
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.checked = task.status === "completed"; // Set checkbox to checked if task is completed
+                    checkboxContainer.appendChild(checkbox);
+                    listItem.appendChild(checkboxContainer);
+
+                    // Task title
+                    const taskTitle = document.createElement("span");
+                    taskTitle.textContent = task.title;
+                    if (task.status === "completed") {
+                        taskTitle.classList.add("completed");
+                    }
+                    listItem.appendChild(taskTitle);
+
+                    // Checkbox change event
+                    checkbox.addEventListener("change", () => {
+                        const newStatus = checkbox.checked ? "completed" : "pending";
+                        db.collection("tasks").doc(taskId).update({
+                            status: newStatus
+                        }).then(() => {
+                            taskTitle.classList.toggle("completed", checkbox.checked);
+                        });
+                    });
+
+                    // Delete Button
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "X";
+                    deleteBtn.className = "delete-task";
+                    deleteBtn.addEventListener("click", (e) => {
+                        e.stopPropagation(); // Prevent toggling status when deleting
+                        db.collection("tasks").doc(taskId).delete().then(() => {
+                            listItem.remove();
+                        });
+                    });
+
+                    listItem.appendChild(deleteBtn);
+                    taskList.appendChild(listItem);
+                });
+            });
+        }
+
+        // Filter by status
+        filter.addEventListener("change", () => {
+            loadTasks(filter.value);
+        });
+    </script>
+
+

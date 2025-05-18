@@ -5,6 +5,16 @@ body {
     background-color: #f3e5f5;
 }
 
+
+
+body {
+  background-image: url('wolverhampton-uni.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
 header {
     background-color: #6a1b9a;
     color: white;
