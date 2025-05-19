@@ -280,3 +280,39 @@ function updateDiscountList() {
 window.addEventListener('load', function() {
     updateDiscountList();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.getElementById('register-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      user.sendEmailVerification()
+        .then(() => {
+          document.getElementById('message').innerText = "Verification email sent! Please check your inbox.";
+        });
+    })
+    .catch((error) => {
+      document.getElementById('message').innerText = error.message;
+    });
+});

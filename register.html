@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WLV Finance App - Register</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body class="register-page">
     <header>WLV Finance App</header>
-    
+
     <div class="dashboard">
         <h2>Create Your Account</h2>
         <p>Welcome! Please provide your details to register for your WLV Finance App account.</p>
@@ -29,7 +31,7 @@
             <input type="tel" id="phone" placeholder="Phone Number" required>
 
             <input type="email" id="register-email" placeholder="Enter your email" required>
-            
+
             <div class="password-requirements">
                 <p><strong>Password Requirements:</strong></p>
                 <ul>
@@ -53,8 +55,178 @@
     </footer>
     <script src="script.js"></script>
 
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--stored user data to firebase authy-->
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+
+
+
+
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("✅ Registration successful!");
+                    // Redirect or continue...
+                })
+                .catch((error) => {
+                    alert("❌ " + error.message);
+                });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--email confirmation-->
+
+    <!-- <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            sendEmailVerification
+        } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById("registerForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    sendEmailVerification(user)
+                        .then(() => {
+                            alert("✅ Verification email sent! Please check your inbox.");
+                        })
+                        .catch((error) => {
+                            alert("❌ Failed to send email: " + error.message);
+                        });
+                })
+                .catch((error) => {
+                    alert("❌ " + error.message);
+                });
+        });
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script>
-        document.getElementById("registerForm").addEventListener("submit", function(e) {
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
             e.preventDefault();
 
             var firstName = document.getElementById("first-name").value;
@@ -88,12 +260,12 @@
 
             localStorage.setItem("email", email);
             localStorage.setItem("password", password);
-            
+
             alert("Registration Successful! You will be redirected to the login page.");
 
             clearForm();
 
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.href = "index.html";
             }, 2000);
         });
@@ -110,5 +282,51 @@
             document.getElementById("confirm-password").value = '';
         }
     </script>
+
+
+
+
+
+
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    user.sendEmailVerification()
+                        .then(() => {
+                            message.textContent = "✅ Verification email sent. Please check your inbox.";
+                        })
+                        .catch((error) => {
+                            message.textContent = "⚠️ Failed to send verification email: " + error.message;
+                        });
+                })
+                .catch((error) => {
+                    message.textContent = "⚠️ Error: " + error.message;
+                });
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>

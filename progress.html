@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Progress - WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -31,14 +35,16 @@
         <!-- Bug Fix: Improved accessibility by adding ARIA labels for progress bars -->
         <div class="content-card">
             <h4>Savings & Goals</h4>
-            <progress id="savings-goal" value="80" max="100" style="width: 100%;" aria-label="Savings Goal Progress"></progress>
+            <progress id="savings-goal" value="80" max="100" style="width: 100%;"
+                aria-label="Savings Goal Progress"></progress>
             <p id="savings-goal-msg">80% of your savings goal achieved!</p>
         </div>
 
         <!-- Bug Fix: Corrected typo in Student Discounts message -->
         <div class="content-card">
             <h4>Student Discounts</h4>
-            <progress id="student-discount" value="50" max="100" style="width: 100%;" aria-label="Student Discount Progress"></progress>
+            <progress id="student-discount" value="50" max="100" style="width: 100%;"
+                aria-label="Student Discount Progress"></progress>
             <p id="student-discount-msg">50% of your available discounts utilized.</p>
         </div>
 
@@ -48,48 +54,92 @@
         </div>
     </div>
 
+
+
+
+
+
+
+    <!-- Canvas for the graph -->
+    <div
+        style="width: 80%; max-width: 600px; margin: auto; background-color: white; padding: 20px; border-radius: 10px;">
+        <canvas id="progressChart" style="background-color: white;"></canvas>
+    </div>
+
+
+
+
+
+
+
     <footer>
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
 
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Sample data - replace with your real data if needed
+        const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: "Savings Progress (£)",
+                data: [100, 200, 350, 500, 750, 900],
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                tension: 0.1
+            }]
+        };
+
+        const config = {
+            type: 'line', // You can change this to 'bar', 'pie', etc.
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Monthly Savings Progress'
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        new Chart(document.getElementById("progressChart"), config);
+    </script>
+
+
+
+
+
+
+
+
+
+
     <!-- Bug Fix: Updated JavaScript to dynamically adjust progress bar values -->
     <script src="script.js"></script>
-
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Canvas for the graph -->
-  <div style="width: 80%; max-width: 600px; margin: auto;">
-    <canvas id="progressChart"></canvas>
-  </div>
-
-  <script>
-    const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-    const data = {
-      labels: labels,
-      datasets: [{
-        label: "Savings Progress (£)",
-        data: [100, 200, 350, 500, 750, 900],
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.1
-      }]
-    };
-
-    const config = {
-      type: 'line',
-      data: data,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'top' },
-          title: { display: true, text: 'Monthly Savings Progress' }
-        }
-      }
-    };
-
-    new Chart(document.getElementById("progressChart"), config);
-  </script>
-
 </body>
+
 </html>

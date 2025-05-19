@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WLV Finance App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         WLV Finance App
@@ -25,14 +27,16 @@
                 <form id="loginForm">
                     <input type="email" id="email" placeholder="Enter your email" required>
                     <input type="password" id="password" placeholder="Enter your password" required>
+                    <br><a href="forgot-password.html" style="color: blue; font-size: 0.9em;">Forgot Password?</a>
                     <button type="submit">Login</button>
                 </form>
-                <p>Don't have an account? <a href="register.html" id="register-link">Register here</a></p>  <!--add the register page-->
+                <p>Don't have an account? <a href="register.html" id="register-link">Register here</a></p>
+                <!--add the register page-->
             </div>
         </div>
 
 
-    
+
 
         <!-- Dashboard stats here -->
         <div class="user-content" id="user-content" style="display: none;">
@@ -41,7 +45,7 @@
             <ul>
                 <li><a href="profile.html">Profile</a></li>
                 <li><a href="daily-expenses.html">Daily Expenses</a></li>
-                <li><a href="income-budgeting.html">Income & Budgeting</a></li>     <!--these all are nev bar option-->
+                <li><a href="income-budgeting.html">Income & Budgeting</a></li> <!--these all are nev bar option-->
                 <li><a href="feedback.html">Feedback/Review</a></li>
                 <li><a href="settings.html">Settings</a></li>
                 <li><a href="#" id="logout">Logout</a></li>
@@ -52,5 +56,152 @@
         &copy; 2025 University of Wolverhampton - WLV Finance App
     </footer>
     <script src="script.js"></script>
+
+
+
+
+
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("✅ Login successful!");
+                    // Redirect or continue...
+                })
+                .catch((error) => {
+                    alert("❌ " + error.message);
+                });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--email confirmation-->
+
+<!-- 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword
+        } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXHSBFQGsJLvF8FNez57RJrIZ5FtnAxvs",
+            authDomain: "wlv-finance-app.firebaseapp.com",
+            projectId: "wlv-finance-app",
+            storageBucket: "wlv-finance-app.appspot.com",
+            messagingSenderId: "162652615145",
+            appId: "1:162652615145:web:66748fe7a491674aaadb78"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById("loginForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+
+                    if (user.emailVerified) {
+                        alert("✅ Login successful!");
+                        // Redirect if needed: window.location.href = "dashboard.html";
+                    } else {
+                        alert("⚠️ Please verify your email before logging in.");
+                    }
+                })
+                .catch((error) => {
+                    alert("❌ " + error.message);
+                });
+        });
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>
